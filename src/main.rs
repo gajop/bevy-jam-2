@@ -54,9 +54,9 @@ fn setup_cameras(
     mut post_processing_materials_green: ResMut<Assets<PostProcessingMaterialGreen>>,
     mut post_processing_materials_blue: ResMut<Assets<PostProcessingMaterialBlue>>,
     mut meshes: ResMut<Assets<Mesh>>,
-    mut windows: ResMut<Windows>,
+    // mut windows: ResMut<Windows>,
 ) {
-    let window = windows.get_primary_mut().unwrap();
+    // let window = windows.get_primary_mut().unwrap();
     // window.set_maximized(true);
     // let size = Extent3d {
     //     width: window.physical_width(),

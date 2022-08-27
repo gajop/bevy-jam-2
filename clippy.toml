@@ -1,1 +1,3 @@
-type_complexity = false
+# type_complexity = false
+too-many-arguments-threshold = 25555
+type-complexity-threshold = 25555
