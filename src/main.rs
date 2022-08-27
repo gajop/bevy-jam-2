@@ -15,7 +15,12 @@ use bevy::{
 };
 
 use bevy_inspector_egui::WorldInspectorPlugin;
+use game_mechanics::{GameMechanicsPlugin, GRID_SIZE_X, GRID_SIZE_Y};
 use itertools::izip;
+use object_rendering::ObjectRenderingPlugin;
+
+mod game_mechanics;
+mod object_rendering;
 
 fn main() {
     App::new()
@@ -29,6 +34,8 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(WorldInspectorPlugin::new())
+        .add_plugin(GameMechanicsPlugin)
+        .add_plugin(ObjectRenderingPlugin)
         .add_plugin(Material2dPlugin::<PostProcessingMaterialRed>::default())
         .add_plugin(Material2dPlugin::<PostProcessingMaterialGreen>::default())
         .add_plugin(Material2dPlugin::<PostProcessingMaterialBlue>::default())
@@ -216,13 +223,11 @@ fn spawn_first_level(
     //     .insert(RenderLayers::from_layers(&[1, 2, 3]))
     //     .insert(Name::new("Plane"));
 
-    let grid_size_x = 8.0;
-    let grid_size_y = 12.0;
     let element_size = 0.95;
     let padding = 0.05;
 
-    for i in 0..grid_size_x as i32 {
-        for j in 0..grid_size_y as i32 {
+    for i in 0..GRID_SIZE_X as i32 {
+        for j in 0..GRID_SIZE_Y as i32 {
             let x = i as f32;
             let y = j as f32;
             let x = x * (element_size + padding);

@@ -246,6 +246,7 @@ dependencies = [
  "anyhow",
  "bevy",
  "bevy-inspector-egui",
+ "ctrl_macros",
  "itertools",
  "rand",
 ]
@@ -1287,6 +1288,12 @@ dependencies = [
  "cfg-if 1.0.0",
  "once_cell",
 ]
+
+[[package]]
+name = "ctrl_macros"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4a40233e3b46b0f67b829820fcf6d51336c395582b228f1d0f1056fc71d6d762"
 
 [[package]]
 name = "cty"

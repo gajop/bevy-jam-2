@@ -9,6 +9,7 @@ version = "0.1.0"
 anyhow = "1.0.51"
 bevy = "0.8"
 bevy-inspector-egui = "0.12"
+ctrl_macros = "0.1.0"
 itertools = "0.10.3"
 rand = "0.8.3"
 
