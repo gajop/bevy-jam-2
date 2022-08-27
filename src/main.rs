@@ -16,7 +16,6 @@ use bevy::{
 
 use bevy_inspector_egui::WorldInspectorPlugin;
 use game_mechanics::{GameMechanicsPlugin, GRID_SIZE_X, GRID_SIZE_Y};
-use itertools::izip;
 use object_rendering::ObjectRenderingPlugin;
 
 mod game_mechanics;
@@ -242,32 +241,6 @@ fn spawn_first_level(
                 .insert(RenderLayers::from_layers(&[1, 2, 3]))
                 .insert(Name::new("Plane"));
         }
-    }
-
-    let colors = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]];
-    let positions = [[1.0, 0.5, 2.0], [3.0, 0.5, 2.0], [5.0, 0.5, 2.0]];
-    let names = ["Red", "Green", "Blue"];
-    let layers = [
-        RenderLayers::layer(1),
-        RenderLayers::layer(2),
-        RenderLayers::layer(3),
-    ];
-    for (color, pos, name, layer) in izip!(colors, positions, names, layers) {
-        let material_handle = materials.add(StandardMaterial {
-            base_color: Color::rgb(color[0], color[1], color[2]),
-            ..default()
-        });
-
-        commands
-            .spawn_bundle(PbrBundle {
-                mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-                material: material_handle,
-                transform: Transform::from_xyz(pos[0], pos[1], pos[2]),
-
-                ..default()
-            })
-            .insert(layer)
-            .insert(Name::new(format!("Cube {}", name)));
     }
 }
 

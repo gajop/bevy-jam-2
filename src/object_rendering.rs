@@ -1,18 +1,20 @@
 use bevy::{prelude::*, render::view::RenderLayers};
 
-use crate::game_mechanics::{GameColor, GridPos, Player, GRID_SIZE_Y};
+use crate::game_mechanics::{GameColor, Goal, GridPos, Player, Trap, GRID_SIZE_Y};
 
 pub struct ObjectRenderingPlugin;
 
 impl Plugin for ObjectRenderingPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(object_generated)
+        app.add_system(spawn_player_object)
+            .add_system(spawn_trap_object)
+            .add_system(spawn_goal_object)
             .add_system(update_visibility)
             .add_system(update_transform_from_grid);
     }
 }
 
-fn object_generated(
+fn spawn_player_object(
     q_added_player: Query<(Entity, &GridPos), Added<Player>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -30,6 +32,60 @@ fn object_generated(
         commands.entity(entity).insert_bundle(PbrBundle {
             mesh: meshes.add(Mesh::from(shape::UVSphere {
                 radius: 0.5,
+                ..default()
+            })),
+            material: material_handle.clone(),
+            transform: Transform::from_translation(grid_to_translation(*pos)),
+
+            ..default()
+        });
+    }
+}
+
+fn spawn_trap_object(
+    q_added_trap: Query<(Entity, &GridPos), Added<Trap>>,
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    let material_handle = materials.add(StandardMaterial {
+        base_color: Color::rgb(1.0, 1.0, 1.0),
+        ..default()
+    });
+
+    for entity_pos in q_added_trap.iter() {
+        let entity = entity_pos.0;
+        let pos = entity_pos.1;
+
+        commands.entity(entity).insert_bundle(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+            material: material_handle.clone(),
+            transform: Transform::from_translation(grid_to_translation(*pos)),
+
+            ..default()
+        });
+    }
+}
+
+fn spawn_goal_object(
+    q_added_goal: Query<(Entity, &GridPos), Added<Goal>>,
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    let material_handle = materials.add(StandardMaterial {
+        base_color: Color::rgb(1.0, 1.0, 1.0),
+        ..default()
+    });
+
+    for entity_pos in q_added_goal.iter() {
+        let entity = entity_pos.0;
+        let pos = entity_pos.1;
+
+        commands.entity(entity).insert_bundle(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Torus {
+                radius: 0.5,
+                ring_radius: 0.1,
                 ..default()
             })),
             material: material_handle.clone(),
