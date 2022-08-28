@@ -1,3 +1,4 @@
+use audio::AudioPlugin;
 use bevy::{asset::AssetServerSettings, prelude::*, window::WindowMode};
 
 use bevy_inspector_egui::WorldInspectorPlugin;
@@ -7,6 +8,7 @@ use level::LevelPlugin;
 use object_rendering::ObjectRenderingPlugin;
 use text_display::TextDisplayPlugin;
 
+mod audio;
 mod camera_rendering;
 mod game_mechanics;
 mod level;
@@ -26,10 +28,11 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(WorldInspectorPlugin::new())
-        .add_plugin(GameMechanicsPlugin)
-        .add_plugin(ObjectRenderingPlugin)
-        .add_plugin(LevelPlugin)
-        .add_plugin(TextDisplayPlugin)
+        .add_plugin(AudioPlugin)
         .add_plugin(CameraRendering)
+        .add_plugin(GameMechanicsPlugin)
+        .add_plugin(LevelPlugin)
+        .add_plugin(ObjectRenderingPlugin)
+        .add_plugin(TextDisplayPlugin)
         .run();
 }

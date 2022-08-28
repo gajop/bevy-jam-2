@@ -37,13 +37,16 @@ pub struct ReachedGoalEvent;
 
 pub struct HitTrapEvent;
 
+pub struct PlayerMoved;
+
 impl Plugin for GameMechanicsPlugin {
     fn build(&self, app: &mut App) {
         app.add_system(movement_system)
             .add_system(reach_goal)
             .add_system(hit_trap)
             .add_event::<HitTrapEvent>()
-            .add_event::<ReachedGoalEvent>();
+            .add_event::<ReachedGoalEvent>()
+            .add_event::<PlayerMoved>();
 
         const DEBUG: bool = true;
         if DEBUG {
@@ -52,17 +55,39 @@ impl Plugin for GameMechanicsPlugin {
         }
     }
 }
-fn movement_system(mut q_player_pos: Query<&mut GridPos, With<Player>>, keys: Res<Input<KeyCode>>) {
-    let mut player_pos = ok_or_return!(q_player_pos.get_single_mut());
+fn movement_system(
+    mut q_player_pos: Query<&mut GridPos, With<Player>>,
+    keys: Res<Input<KeyCode>>,
+    mut ev_moved: EventWriter<PlayerMoved>,
+) {
+    let mut pos = ok_or_return!(q_player_pos.get_single_mut());
 
+    let mut moved = false;
     if keys.just_pressed(KeyCode::W) {
-        player_pos.y = (player_pos.y + 1).min(GRID_SIZE_Y - 1);
+        if pos.y < GRID_SIZE_Y - 1 {
+            pos.y += 1;
+            moved = true;
+        }
     } else if keys.just_pressed(KeyCode::A) {
-        player_pos.x = (player_pos.x - 1).max(0);
+        if pos.x > 0 {
+            pos.x -= 1;
+            moved = true;
+        }
     } else if keys.just_pressed(KeyCode::S) {
-        player_pos.y = (player_pos.y - 1).max(0);
+        if pos.y > 0 {
+            pos.y -= 1;
+            moved = true;
+        }
     } else if keys.just_pressed(KeyCode::D) {
-        player_pos.x = (player_pos.x + 1).min(GRID_SIZE_X - 1);
+        #[allow(clippy::collapsible_if)]
+        if pos.x < GRID_SIZE_X - 1 {
+            pos.x += 1;
+            moved = true;
+        }
+    }
+
+    if moved {
+        ev_moved.send(PlayerMoved);
     }
 }
 
