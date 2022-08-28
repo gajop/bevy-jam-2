@@ -33,6 +33,10 @@ pub enum GameColor {
     White,
 }
 
+pub struct ReachedGoalEvent;
+
+pub struct HitTrapEvent;
+
 impl Plugin for GameMechanicsPlugin {
     fn build(&self, app: &mut App) {
         app.add_system(movement_system)
@@ -89,6 +93,3 @@ fn hit_trap(
         }
     }
 }
-
-pub struct ReachedGoalEvent;
-pub struct HitTrapEvent;
