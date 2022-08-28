@@ -30,7 +30,8 @@ fn main() {
             ..default()
         })
         .insert_resource(WindowDescriptor {
-            mode: WindowMode::BorderlessFullscreen,
+            mode: WindowMode::Windowed,
+            // mode: WindowMode::BorderlessFullscreen,
             ..default()
         })
         .add_plugins(DefaultPlugins)
@@ -212,18 +213,9 @@ fn spawn_first_level(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     let material_handle = materials.add(StandardMaterial {
-        base_color: Color::rgb(1.0, 1.0, 1.0),
+        base_color: Color::rgb(0.8, 0.8, 0.8),
         ..default()
     });
-
-    // commands
-    //     .spawn_bundle(PbrBundle {
-    //         mesh: meshes.add(Mesh::from(shape::Plane { size: 10.0 })),
-    //         material: material_handle,
-    //         ..default()
-    //     })
-    //     .insert(RenderLayers::from_layers(&[1, 2, 3]))
-    //     .insert(Name::new("Plane"));
 
     let element_size = 0.95;
     let padding = 0.05;

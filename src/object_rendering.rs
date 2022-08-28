@@ -9,91 +9,93 @@ impl Plugin for ObjectRenderingPlugin {
         app.add_system(spawn_player_object)
             .add_system(spawn_trap_object)
             .add_system(spawn_goal_object)
+            .add_system(update_material_color)
             .add_system(update_visibility)
             .add_system(update_transform_from_grid);
     }
 }
 
 fn spawn_player_object(
-    q_added_player: Query<(Entity, &GridPos), Added<Player>>,
+    q_added_player: Query<(Entity, &GridPos, &GameColor), Added<Player>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    let material_handle = materials.add(StandardMaterial {
-        base_color: Color::rgb(1.0, 1.0, 1.0),
-        ..default()
-    });
-
-    for entity_pos in q_added_player.iter() {
-        let entity = entity_pos.0;
-        let pos = entity_pos.1;
-
-        commands.entity(entity).insert_bundle(PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::UVSphere {
+    for (entity, &pos, &color) in q_added_player.iter() {
+        spawn_world_object(
+            entity,
+            color,
+            pos,
+            &mut commands,
+            meshes.add(Mesh::from(shape::UVSphere {
                 radius: 0.5,
                 ..default()
             })),
-            material: material_handle.clone(),
-            transform: Transform::from_translation(grid_to_translation(*pos)),
-
-            ..default()
-        });
+            &mut materials,
+        );
     }
 }
 
 fn spawn_trap_object(
-    q_added_trap: Query<(Entity, &GridPos), Added<Trap>>,
+    q_added_trap: Query<(Entity, &GridPos, &GameColor), Added<Trap>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    let material_handle = materials.add(StandardMaterial {
-        base_color: Color::rgb(1.0, 1.0, 1.0),
-        ..default()
-    });
-
-    for entity_pos in q_added_trap.iter() {
-        let entity = entity_pos.0;
-        let pos = entity_pos.1;
-
-        commands.entity(entity).insert_bundle(PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-            material: material_handle.clone(),
-            transform: Transform::from_translation(grid_to_translation(*pos)),
-
-            ..default()
-        });
+    for (entity, &pos, &color) in q_added_trap.iter() {
+        spawn_world_object(
+            entity,
+            color,
+            pos,
+            &mut commands,
+            meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+            &mut materials,
+        );
     }
 }
 
 fn spawn_goal_object(
-    q_added_goal: Query<(Entity, &GridPos), Added<Goal>>,
+    q_added_goal: Query<(Entity, &GridPos, &GameColor), Added<Goal>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    let material_handle = materials.add(StandardMaterial {
-        base_color: Color::rgb(1.0, 1.0, 1.0),
-        ..default()
-    });
-
-    for entity_pos in q_added_goal.iter() {
-        let entity = entity_pos.0;
-        let pos = entity_pos.1;
-
-        commands.entity(entity).insert_bundle(PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::Torus {
+    for (entity, &pos, &color) in q_added_goal.iter() {
+        spawn_world_object(
+            entity,
+            color,
+            pos,
+            &mut commands,
+            meshes.add(Mesh::from(shape::Torus {
                 radius: 0.5,
                 ring_radius: 0.1,
                 ..default()
             })),
-            material: material_handle.clone(),
-            transform: Transform::from_translation(grid_to_translation(*pos)),
-
-            ..default()
-        });
+            &mut materials,
+        );
     }
+}
+
+fn spawn_world_object(
+    entity: Entity,
+    color: GameColor,
+    pos: GridPos,
+    commands: &mut Commands,
+    mesh: Handle<Mesh>,
+    materials: &mut ResMut<Assets<StandardMaterial>>,
+) {
+    let material_handle = materials.add(StandardMaterial {
+        base_color: get_bevy_color(color),
+        ..default()
+    });
+
+    commands.entity(entity).insert_bundle(PbrBundle {
+        mesh,
+        material: material_handle,
+        transform: Transform::from_translation(grid_to_translation(pos)),
+
+        ..default()
+    });
 }
 
 fn update_visibility(
@@ -102,11 +104,10 @@ fn update_visibility(
 ) {
     for entity_color in q_game_colors.iter() {
         let entity = entity_color.0;
-        let color = entity_color.1;
+        let color = *entity_color.1;
 
         commands.entity(entity).remove::<RenderLayers>();
-        let layers = layers_from_game_color(*color);
-        dbg!("layers = {:?}", &layers);
+        let layers = layers_from_game_color(color);
         commands.entity(entity).insert(layers);
     }
 }
@@ -124,6 +125,28 @@ fn layers_from_game_color(game_color: GameColor) -> RenderLayers {
     let layers = layers.as_slice();
 
     RenderLayers::from_layers(layers)
+}
+
+fn update_material_color(
+    mut q_game_materials: Query<(&GameColor, &mut Handle<StandardMaterial>), Changed<GameColor>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    for (&color, material_handle) in &mut q_game_materials.iter_mut() {
+        let mut color_mat = materials.get_mut(&material_handle).unwrap();
+        color_mat.base_color = get_bevy_color(color);
+    }
+}
+
+fn get_bevy_color(game_color: GameColor) -> Color {
+    match game_color {
+        GameColor::Red => Color::rgb(1.0, 0.0, 0.0),
+        GameColor::Green => Color::rgb(0.0, 1.0, 0.0),
+        GameColor::Blue => Color::rgb(0.0, 0.0, 1.0),
+        GameColor::Yellow => Color::rgb(1.0, 1.0, 0.0),
+        GameColor::Cyan => Color::rgb(0.0, 1.0, 1.0),
+        GameColor::Pink => Color::rgb(1.0, 0.0, 1.0),
+        GameColor::White => Color::rgb(1.0, 1.0, 1.0),
+    }
 }
 
 fn update_transform_from_grid(

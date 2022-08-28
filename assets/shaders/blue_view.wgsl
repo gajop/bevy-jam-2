@@ -15,8 +15,8 @@ fn fragment(
     let uv = position.xy / vec2<f32>(view.width, view.height);
 
     var output_color = textureSample(texture, our_sampler, uv);
-    output_color.r = 0.0;
-    output_color.g = 0.0;
+    output_color.r *= 0.1;
+    output_color.g *= 0.1;
 
     return output_color;
 }
