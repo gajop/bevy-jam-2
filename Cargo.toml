@@ -9,9 +9,11 @@ version = "0.1.0"
 anyhow = "1.0.51"
 bevy = "0.8"
 bevy-inspector-egui = "0.12"
+bevy_common_assets = {version = "0.3", features = ["json"]}
 ctrl_macros = "0.1.0"
 itertools = "0.10.3"
 rand = "0.8.3"
+serde = "1.0"
 
 # # Enable only a small amount of optimization in debug mode
 # [profile.dev]

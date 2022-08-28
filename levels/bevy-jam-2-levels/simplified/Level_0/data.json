@@ -1,0 +1,104 @@
+{
+	"x": 0,
+	"y": 64,
+	"width": 128,
+	"height": 192,
+	"iid": "a8245801-02f0-11ed-b6e7-c911cbb083dc",
+	"layers": [],
+	"entities": {
+		"Player": [
+			{
+				"id": "Player",
+				"iid": "3eaedb60-02f0-11ed-b6e7-73d1bd851498",
+				"layer": "Entities",
+				"x": 48,
+				"y": 32,
+				"width": 16,
+				"height": 16,
+				"color": 7250603,
+				"customFields" : {}
+			}
+		],
+		"RedTrap": [
+			{
+				"id": "RedTrap",
+				"iid": "8f333130-02f0-11ed-b6e7-bf5860a42af2",
+				"layer": "Entities",
+				"x": 64,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			},
+			{
+				"id": "RedTrap",
+				"iid": "901f8d00-02f0-11ed-b6e7-f98359c23c39",
+				"layer": "Entities",
+				"x": 48,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			},
+			{
+				"id": "RedTrap",
+				"iid": "907b1a80-02f0-11ed-b6e7-ef4ec70f110a",
+				"layer": "Entities",
+				"x": 32,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			},
+			{
+				"id": "RedTrap",
+				"iid": "90ed8b60-02f0-11ed-b6e7-07040c59e9d7",
+				"layer": "Entities",
+				"x": 16,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			},
+			{
+				"id": "RedTrap",
+				"iid": "9155c310-02f0-11ed-b6e7-bb77f47ae601",
+				"layer": "Entities",
+				"x": 80,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			},
+			{
+				"id": "RedTrap",
+				"iid": "9197fc30-02f0-11ed-b6e7-b1157bfdbe79",
+				"layer": "Entities",
+				"x": 96,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			}
+		],
+		"Goal": [
+			{
+				"id": "Goal",
+				"iid": "a3f42660-02f0-11ed-b6e7-2dee29b075e5",
+				"layer": "Entities",
+				"x": 48,
+				"y": 144,
+				"width": 16,
+				"height": 16,
+				"color": 10132053,
+				"customFields" : {}
+			}
+		]
+	}
+}

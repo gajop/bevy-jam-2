@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::{Inspectable, RegisterInspectable};
 use ctrl_macros::ok_or_return;
+use serde::Deserialize;
 
 pub const GRID_SIZE_X: i32 = 8;
 pub const GRID_SIZE_Y: i32 = 12;
@@ -21,7 +22,7 @@ pub struct GridPos {
     pub y: i32,
 }
 
-#[derive(Component, Inspectable, Copy, Clone)]
+#[derive(Component, Inspectable, Copy, Clone, Deserialize)]
 pub enum GameColor {
     Red,
     Green,
@@ -34,11 +35,11 @@ pub enum GameColor {
 
 impl Plugin for GameMechanicsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_startup_system(spawn_player)
-            .add_startup_system(initial_scene)
-            .add_system(movement_system)
+        app.add_system(movement_system)
             .add_system(reach_goal)
-            .add_system(hit_trap);
+            .add_system(hit_trap)
+            .add_event::<HitTrapEvent>()
+            .add_event::<ReachedGoalEvent>();
 
         const DEBUG: bool = true;
         if DEBUG {
@@ -47,32 +48,6 @@ impl Plugin for GameMechanicsPlugin {
         }
     }
 }
-
-fn spawn_player(mut commands: Commands) {
-    commands
-        .spawn()
-        .insert(Player)
-        .insert(GridPos { x: 5, y: 5 })
-        .insert(GameColor::White)
-        .insert(Name::new("Player"));
-}
-
-fn initial_scene(mut commands: Commands) {
-    commands
-        .spawn()
-        .insert(Trap)
-        .insert(GridPos { x: 2, y: 3 })
-        .insert(GameColor::Red)
-        .insert(Name::new("Trap"));
-
-    commands
-        .spawn()
-        .insert(Goal)
-        .insert(GridPos { x: 6, y: 4 })
-        .insert(GameColor::Blue)
-        .insert(Name::new("Goal"));
-}
-
 fn movement_system(mut q_player_pos: Query<&mut GridPos, With<Player>>, keys: Res<Input<KeyCode>>) {
     let mut player_pos = ok_or_return!(q_player_pos.get_single_mut());
 
@@ -90,12 +65,13 @@ fn movement_system(mut q_player_pos: Query<&mut GridPos, With<Player>>, keys: Re
 fn reach_goal(
     q_player_pos: Query<&GridPos, (With<Player>, Changed<GridPos>)>,
     q_goal_pos: Query<&GridPos, (With<Goal>, Without<Player>)>,
+    mut ev_reached_goal: EventWriter<ReachedGoalEvent>,
 ) {
     let player_pos = ok_or_return!(q_player_pos.get_single());
 
     for goal in q_goal_pos.iter() {
         if player_pos == goal {
-            println!("Found goal!");
+            ev_reached_goal.send(ReachedGoalEvent);
         }
     }
 }
@@ -103,12 +79,16 @@ fn reach_goal(
 fn hit_trap(
     q_player_pos: Query<&GridPos, (With<Player>, Changed<GridPos>)>,
     q_trap_pos: Query<&GridPos, (With<Trap>, Without<Player>)>,
+    mut ev_hit_trap: EventWriter<HitTrapEvent>,
 ) {
     let player_pos = ok_or_return!(q_player_pos.get_single());
 
     for trap in q_trap_pos.iter() {
         if player_pos == trap {
-            println!("Hit trap :(");
+            ev_hit_trap.send(HitTrapEvent);
         }
     }
 }
+
+pub struct ReachedGoalEvent;
+pub struct HitTrapEvent;

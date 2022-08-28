@@ -16,9 +16,11 @@ use bevy::{
 
 use bevy_inspector_egui::WorldInspectorPlugin;
 use game_mechanics::{GameMechanicsPlugin, GRID_SIZE_X, GRID_SIZE_Y};
+use level::LevelPlugin;
 use object_rendering::ObjectRenderingPlugin;
 
 mod game_mechanics;
+mod level;
 mod object_rendering;
 
 fn main() {
@@ -35,6 +37,7 @@ fn main() {
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(GameMechanicsPlugin)
         .add_plugin(ObjectRenderingPlugin)
+        .add_plugin(LevelPlugin)
         .add_plugin(Material2dPlugin::<PostProcessingMaterialRed>::default())
         .add_plugin(Material2dPlugin::<PostProcessingMaterialGreen>::default())
         .add_plugin(Material2dPlugin::<PostProcessingMaterialBlue>::default())
