@@ -1,14 +1,6 @@
 {
 	"levels": [
 		{
-			"player": {
-				"x": 3,
-				"y": 2
-			},
-			"goal": {
-				"x": 3,
-				"y": 9
-			},
 			"traps": [
 				{
 					"x": 4,
@@ -40,17 +32,21 @@
 					"y": 6,
 					"color": "Red"
 				}
+			],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "White"
+			},
+			"goals": [
+				{
+					"x": 3,
+					"y": 9,
+					"color": "White"
+				}
 			]
 		},
 		{
-			"player": {
-				"x": 6,
-				"y": 3
-			},
-			"goal": {
-				"x": 2,
-				"y": 8
-			},
 			"traps": [
 				{
 					"x": 3,
@@ -107,17 +103,419 @@
 					"y": 6,
 					"color": "Blue"
 				}
+			],
+			"player": {
+				"x": 6,
+				"y": 3,
+				"color": "White"
+			},
+			"goals": [
+				{
+					"x": 2,
+					"y": 8,
+					"color": "White"
+				}
 			]
 		},
 		{
+			"traps": [
+				{
+					"x": 0,
+					"y": 7,
+					"color": "Cyan"
+				},
+				{
+					"x": 2,
+					"y": 7,
+					"color": "Cyan"
+				},
+				{
+					"x": 1,
+					"y": 7,
+					"color": "Cyan"
+				},
+				{
+					"x": 1,
+					"y": 6,
+					"color": "Cyan"
+				},
+				{
+					"x": 2,
+					"y": 6,
+					"color": "Cyan"
+				},
+				{
+					"x": 3,
+					"y": 6,
+					"color": "Cyan"
+				},
+				{
+					"x": 4,
+					"y": 6,
+					"color": "Cyan"
+				},
+				{
+					"x": 1,
+					"y": 2,
+					"color": "Pink"
+				},
+				{
+					"x": 3,
+					"y": 2,
+					"color": "Pink"
+				},
+				{
+					"x": 3,
+					"y": 1,
+					"color": "Pink"
+				},
+				{
+					"x": 2,
+					"y": 1,
+					"color": "Pink"
+				},
+				{
+					"x": 1,
+					"y": 1,
+					"color": "Pink"
+				},
+				{
+					"x": 2,
+					"y": 2,
+					"color": "Pink"
+				},
+				{
+					"x": 4,
+					"y": 2,
+					"color": "Pink"
+				},
+				{
+					"x": 6,
+					"y": 6,
+					"color": "Yellow"
+				},
+				{
+					"x": 6,
+					"y": 5,
+					"color": "Yellow"
+				},
+				{
+					"x": 6,
+					"y": 4,
+					"color": "Yellow"
+				},
+				{
+					"x": 5,
+					"y": 4,
+					"color": "Yellow"
+				},
+				{
+					"x": 4,
+					"y": 4,
+					"color": "Yellow"
+				},
+				{
+					"x": 3,
+					"y": 4,
+					"color": "Yellow"
+				},
+				{
+					"x": 2,
+					"y": 4,
+					"color": "Yellow"
+				},
+				{
+					"x": 7,
+					"y": 4,
+					"color": "Yellow"
+				}
+			],
 			"player": {
 				"x": 3,
-				"y": 2
+				"y": 9,
+				"color": "Blue"
 			},
-			"goal": {
-				"x": 5,
-				"y": 2
+			"goals": [
+				{
+					"x": 6,
+					"y": 1,
+					"color": "Blue"
+				}
+			]
+		},
+		{
+			"traps": [],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "Red"
 			},
+			"goals": [
+				{
+					"x": 6,
+					"y": 9,
+					"color": "Blue"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 5,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 7,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 7,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 7,
+					"color": "Green"
+				}
+			],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "Red"
+			},
+			"goals": [
+				{
+					"x": 3,
+					"y": 7,
+					"color": "White"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 7,
+					"y": 5,
+					"color": "Red"
+				},
+				{
+					"x": 5,
+					"y": 7,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 7,
+					"color": "Red"
+				},
+				{
+					"x": 5,
+					"y": 6,
+					"color": "Red"
+				},
+				{
+					"x": 5,
+					"y": 0,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 9,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 10,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 11,
+					"color": "Red"
+				},
+				{
+					"x": 4,
+					"y": 11,
+					"color": "Red"
+				},
+				{
+					"x": 4,
+					"y": 9,
+					"color": "Red"
+				},
+				{
+					"x": 4,
+					"y": 1,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 7,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 0,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 2,
+					"color": "Blue"
+				},
+				{
+					"x": 7,
+					"y": 2,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 4,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 5,
+					"y": 9,
+					"color": "Blue"
+				},
+				{
+					"x": 5,
+					"y": 11,
+					"color": "Blue"
+				}
+			],
+			"player": {
+				"x": 1,
+				"y": 1,
+				"color": "White"
+			},
+			"goals": [
+				{
+					"x": 4,
+					"y": 10,
+					"color": "Red"
+				},
+				{
+					"x": 6,
+					"y": 1,
+					"color": "White"
+				}
+			]
+		},
+		{
 			"traps": [
 				{
 					"x": 4,
@@ -258,6 +656,541 @@
 					"x": 4,
 					"y": 5,
 					"color": "Blue"
+				}
+			],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "White"
+			},
+			"goals": [
+				{
+					"x": 5,
+					"y": 2,
+					"color": "White"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 3,
+					"y": 11,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 10,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 7,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 2,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 5,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 2,
+					"color": "Red"
+				},
+				{
+					"x": 2,
+					"y": 1,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 2,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 9,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 4,
+					"color": "Blue"
+				},
+				{
+					"x": 3,
+					"y": 3,
+					"color": "Blue"
+				},
+				{
+					"x": 6,
+					"y": 4,
+					"color": "Blue"
+				},
+				{
+					"x": 5,
+					"y": 2,
+					"color": "Blue"
+				},
+				{
+					"x": 6,
+					"y": 1,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 7,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 8,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 10,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 11,
+					"color": "Blue"
+				},
+				{
+					"x": 0,
+					"y": 9,
+					"color": "Blue"
+				},
+				{
+					"x": 5,
+					"y": 3,
+					"color": "Yellow"
+				},
+				{
+					"x": 5,
+					"y": 5,
+					"color": "Yellow"
+				},
+				{
+					"x": 6,
+					"y": 6,
+					"color": "Yellow"
+				}
+			],
+			"player": {
+				"x": 4,
+				"y": 9,
+				"color": "White"
+			},
+			"goals": [
+				{
+					"x": 6,
+					"y": 2,
+					"color": "Red"
+				},
+				{
+					"x": 2,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 2,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 7,
+					"color": "White"
+				},
+				{
+					"x": 1,
+					"y": 9,
+					"color": "Cyan"
+				},
+				{
+					"x": 6,
+					"y": 5,
+					"color": "Yellow"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 0,
+					"y": 7,
+					"color": "Red"
+				},
+				{
+					"x": 5,
+					"y": 8,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 9,
+					"color": "Red"
+				},
+				{
+					"x": 2,
+					"y": 4,
+					"color": "Red"
+				},
+				{
+					"x": 0,
+					"y": 2,
+					"color": "Red"
+				},
+				{
+					"x": 3,
+					"y": 0,
+					"color": "Red"
+				},
+				{
+					"x": 4,
+					"y": 6,
+					"color": "Red"
+				},
+				{
+					"x": 1,
+					"y": 9,
+					"color": "Red"
+				},
+				{
+					"x": 1,
+					"y": 10,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 10,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 1,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 0,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 1,
+					"color": "Green"
+				},
+				{
+					"x": 7,
+					"y": 1,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 8,
+					"color": "Blue"
+				},
+				{
+					"x": 0,
+					"y": 5,
+					"color": "Blue"
+				},
+				{
+					"x": 4,
+					"y": 3,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 1,
+					"color": "Blue"
+				},
+				{
+					"x": 7,
+					"y": 2,
+					"color": "Blue"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Blue"
+				},
+				{
+					"x": 6,
+					"y": 7,
+					"color": "Blue"
+				},
+				{
+					"x": 4,
+					"y": 9,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 6,
+					"color": "Blue"
+				}
+			],
+			"player": {
+				"x": 6,
+				"y": 1,
+				"color": "Blue"
+			},
+			"goals": [
+				{
+					"x": 3,
+					"y": 10,
+					"color": "Yellow"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 5,
+					"y": 5,
+					"color": "Red"
+				},
+				{
+					"x": 5,
+					"y": 6,
+					"color": "Red"
+				},
+				{
+					"x": 6,
+					"y": 6,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 6,
+					"color": "Red"
+				},
+				{
+					"x": 7,
+					"y": 5,
+					"color": "Red"
+				},
+				{
+					"x": 6,
+					"y": 5,
+					"color": "Red"
+				},
+				{
+					"x": 4,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 0,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 2,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 1,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 5,
+					"color": "Blue"
+				},
+				{
+					"x": 2,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 6,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 5,
+					"color": "Blue"
+				},
+				{
+					"x": 1,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 3,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 5,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 6,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 4,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 2,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 7,
+					"y": 10,
+					"color": "White"
+				},
+				{
+					"x": 0,
+					"y": 8,
+					"color": "Cyan"
+				},
+				{
+					"x": 1,
+					"y": 8,
+					"color": "Cyan"
+				},
+				{
+					"x": 2,
+					"y": 8,
+					"color": "Cyan"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Cyan"
+				},
+				{
+					"x": 5,
+					"y": 8,
+					"color": "Yellow"
+				},
+				{
+					"x": 6,
+					"y": 8,
+					"color": "Yellow"
+				},
+				{
+					"x": 7,
+					"y": 8,
+					"color": "Yellow"
+				}
+			],
+			"player": {
+				"x": 6,
+				"y": 1,
+				"color": "Red"
+			},
+			"goals": [
+				{
+					"x": 4,
+					"y": 11,
+					"color": "Red"
 				}
 			]
 		}

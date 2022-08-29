@@ -1,0 +1,36 @@
+{
+	"x": 384,
+	"y": 64,
+	"width": 128,
+	"height": 192,
+	"iid": "0e962081-02f0-11ed-b717-e191560ca537",
+	"layers": [],
+	"entities": {
+		"RedPlayer": [
+			{
+				"id": "RedPlayer",
+				"iid": "0e964790-02f0-11ed-b717-17b81eb251c6",
+				"layer": "Entities",
+				"x": 48,
+				"y": 32,
+				"width": 16,
+				"height": 16,
+				"color": 16711680,
+				"customFields" : {}
+			}
+		],
+		"BlueGoal": [
+			{
+				"id": "BlueGoal",
+				"iid": "4e0a0600-02f0-11ed-b717-99603c9fbc6d",
+				"layer": "Entities",
+				"x": 96,
+				"y": 144,
+				"width": 16,
+				"height": 16,
+				"color": 255,
+				"customFields" : {}
+			}
+		]
+	}
+}

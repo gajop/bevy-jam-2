@@ -6,16 +6,16 @@
 	"iid": "a8245801-02f0-11ed-b6e7-c911cbb083dc",
 	"layers": [],
 	"entities": {
-		"Player": [
+		"WhitePlayer": [
 			{
-				"id": "Player",
+				"id": "WhitePlayer",
 				"iid": "3eaedb60-02f0-11ed-b6e7-73d1bd851498",
 				"layer": "Entities",
 				"x": 48,
 				"y": 32,
 				"width": 16,
 				"height": 16,
-				"color": 7250603,
+				"color": 16777215,
 				"customFields" : {}
 			}
 		],
@@ -87,16 +87,16 @@
 				"customFields" : {}
 			}
 		],
-		"Goal": [
+		"WhiteGoal": [
 			{
-				"id": "Goal",
+				"id": "WhiteGoal",
 				"iid": "a3f42660-02f0-11ed-b6e7-2dee29b075e5",
 				"layer": "Entities",
 				"x": 48,
 				"y": 144,
 				"width": 16,
 				"height": 16,
-				"color": 10132053,
+				"color": 16777215,
 				"customFields" : {}
 			}
 		]

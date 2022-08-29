@@ -12,12 +12,14 @@ use crate::game_mechanics::{
 struct LevelPlayer {
     x: i32,
     y: i32,
+    color: GameColor,
 }
 
 #[derive(Deserialize)]
 struct LevelGoal {
     x: i32,
     y: i32,
+    color: GameColor,
 }
 
 #[derive(Deserialize)]
@@ -30,7 +32,7 @@ struct LevelTrap {
 #[derive(Deserialize)]
 struct Level {
     player: LevelPlayer,
-    goal: LevelGoal,
+    goals: Vec<LevelGoal>,
     traps: Vec<LevelTrap>,
 }
 
@@ -148,19 +150,20 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
             x: player.x,
             y: player.y,
         })
-        .insert(GameColor::White)
+        .insert(player.color)
         .insert(Name::new("Player"));
 
-    let goal = &level.goal;
-    commands
-        .spawn()
-        .insert(Goal)
-        .insert(GridPos {
-            x: goal.x,
-            y: goal.y,
-        })
-        .insert(GameColor::White)
-        .insert(Name::new("Goal"));
+    for goal in &level.goals {
+        commands
+            .spawn()
+            .insert(Goal)
+            .insert(GridPos {
+                x: goal.x,
+                y: goal.y,
+            })
+            .insert(goal.color)
+            .insert(Name::new("Goal"));
+    }
 
     for trap in &level.traps {
         commands
@@ -174,5 +177,5 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
             .insert(Name::new("Trap"));
     }
 
-    timer.0 = Some(Timer::from_seconds(5.0, false));
+    timer.0 = Some(Timer::from_seconds(25.0, false));
 }
