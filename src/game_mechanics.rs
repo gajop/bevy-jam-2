@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::{Inspectable, RegisterInspectable};
-use ctrl_macros::ok_or_return;
+use ctrl_macros::{ok_or_return, some_or_return};
 use serde::Deserialize;
 
 pub const GRID_SIZE_X: i32 = 8;
@@ -33,20 +33,29 @@ pub enum GameColor {
     White,
 }
 
+// Events
+
 pub struct ReachedGoalEvent;
 
 pub struct HitTrapEvent;
 
-pub struct PlayerMoved;
+pub struct PlayerMovedEvent;
+
+pub struct TimerExpiredEvent;
+
+pub struct GameTimer(pub Option<Timer>);
 
 impl Plugin for GameMechanicsPlugin {
     fn build(&self, app: &mut App) {
         app.add_system(movement_system)
+            .insert_resource(GameTimer(None))
             .add_system(reach_goal)
             .add_system(hit_trap)
+            .add_system(timer_expired)
             .add_event::<HitTrapEvent>()
             .add_event::<ReachedGoalEvent>()
-            .add_event::<PlayerMoved>();
+            .add_event::<PlayerMovedEvent>()
+            .add_event::<TimerExpiredEvent>();
 
         const DEBUG: bool = true;
         if DEBUG {
@@ -58,7 +67,7 @@ impl Plugin for GameMechanicsPlugin {
 fn movement_system(
     mut q_player_pos: Query<&mut GridPos, With<Player>>,
     keys: Res<Input<KeyCode>>,
-    mut ev_moved: EventWriter<PlayerMoved>,
+    mut ev_moved: EventWriter<PlayerMovedEvent>,
 ) {
     let mut pos = ok_or_return!(q_player_pos.get_single_mut());
 
@@ -87,7 +96,7 @@ fn movement_system(
     }
 
     if moved {
-        ev_moved.send(PlayerMoved);
+        ev_moved.send(PlayerMovedEvent);
     }
 }
 
@@ -116,5 +125,18 @@ fn hit_trap(
         if player_pos == trap {
             ev_hit_trap.send(HitTrapEvent);
         }
+    }
+}
+
+fn timer_expired(
+    mut timer: ResMut<GameTimer>,
+    time: Res<Time>,
+    mut ev_timer_expired: EventWriter<TimerExpiredEvent>,
+) {
+    let timer = some_or_return!(&mut timer.0);
+    timer.tick(time.delta());
+
+    if timer.finished() {
+        ev_timer_expired.send(TimerExpiredEvent);
     }
 }

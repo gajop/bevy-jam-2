@@ -4,7 +4,8 @@ use ctrl_macros::some_or_return;
 use serde::Deserialize;
 
 use crate::game_mechanics::{
-    GameColor, Goal, GridPos, HitTrapEvent, Player, ReachedGoalEvent, Trap,
+    GameColor, GameTimer, Goal, GridPos, HitTrapEvent, Player, ReachedGoalEvent, TimerExpiredEvent,
+    Trap,
 };
 
 #[derive(Deserialize)]
@@ -53,6 +54,7 @@ impl Plugin for LevelPlugin {
             .add_startup_system(load_first_level)
             .add_startup_system(setup)
             .add_system(reload_level_on_death)
+            .add_system(reload_level_on_timer_expired)
             .add_system(load_level_on_level_change)
             .add_system(go_to_next_level_on_goal)
             .insert_resource(LevelInfo {
@@ -82,6 +84,16 @@ fn reload_level_on_death(
     }
 }
 
+fn reload_level_on_timer_expired(
+    mut ev_hit_trap: EventReader<TimerExpiredEvent>,
+    mut level_info: ResMut<LevelInfo>,
+) {
+    for _ in ev_hit_trap.iter() {
+        level_info.desired_index = level_info.index;
+        level_info.index = None;
+    }
+}
+
 fn go_to_next_level_on_goal(
     mut ev: EventReader<ReachedGoalEvent>,
     mut level_info: ResMut<LevelInfo>,
@@ -99,6 +111,8 @@ fn load_level_on_level_change(
     mut level_info: ResMut<LevelInfo>,
 
     q_existing_objects: Query<Entity, With<GridPos>>,
+
+    timer: ResMut<GameTimer>,
 ) {
     if level_info.index == level_info.desired_index || level_info.desired_index.is_none() {
         return;
@@ -121,10 +135,10 @@ fn load_level_on_level_change(
 
     let level = &levels.levels[index];
 
-    spawn_level(commands, level);
+    spawn_level(commands, level, timer);
 }
 
-fn spawn_level(mut commands: Commands, level: &Level) {
+fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTimer>) {
     let player = &level.player;
 
     commands
@@ -159,4 +173,6 @@ fn spawn_level(mut commands: Commands, level: &Level) {
             .insert(trap.color)
             .insert(Name::new("Trap"));
     }
+
+    timer.0 = Some(Timer::from_seconds(5.0, false));
 }

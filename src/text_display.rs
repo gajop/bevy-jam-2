@@ -1,12 +1,14 @@
 use bevy::prelude::*;
 
-use crate::level::LevelInfo;
+use crate::{game_mechanics::GameTimer, level::LevelInfo};
 
 pub struct TextDisplayPlugin;
 
 impl Plugin for TextDisplayPlugin {
     fn build(&self, app: &mut App) {
-        app.add_startup_system(setup_text).add_system(win_text);
+        app.add_startup_system(setup_text)
+            .add_system(win_text)
+            .add_system(text_update_system);
     }
 }
 
@@ -96,4 +98,17 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
             ..default()
         }),
     );
+}
+
+fn text_update_system(timer: Res<GameTimer>, mut query: Query<&mut Text, With<TimerText>>) {
+    let timer_text = match &timer.0 {
+        Some(timer) => format!(
+            "Timer: {:.0}",
+            (timer.duration().as_millis() as f32 / 1000.0) - timer.elapsed_secs() + 0.5
+        ),
+        None => "".to_owned(),
+    };
+    for mut text in &mut query {
+        text.sections[0].value = timer_text.clone();
+    }
 }

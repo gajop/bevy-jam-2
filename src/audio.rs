@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::game_mechanics::{HitTrapEvent, PlayerMoved, ReachedGoalEvent};
+use crate::game_mechanics::{HitTrapEvent, PlayerMovedEvent, ReachedGoalEvent};
 
 pub struct AudioPlugin;
 
@@ -35,7 +35,7 @@ fn play_on_hit_trap(
 }
 
 fn play_on_change_pos(
-    mut event: EventReader<PlayerMoved>,
+    mut event: EventReader<PlayerMovedEvent>,
     asset_server: Res<AssetServer>,
     audio: Res<Audio>,
 ) {

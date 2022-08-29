@@ -384,6 +384,8 @@ fn recreate_on_resize(
 
     // CameraStuff
 
+    // return;
+
     if !has_resize {
         return;
     }
