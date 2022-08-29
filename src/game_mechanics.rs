@@ -129,14 +129,15 @@ fn hit_trap(
 }
 
 fn timer_expired(
-    mut timer: ResMut<GameTimer>,
+    mut timer_res: ResMut<GameTimer>,
     time: Res<Time>,
     mut ev_timer_expired: EventWriter<TimerExpiredEvent>,
 ) {
-    let timer = some_or_return!(&mut timer.0);
+    let timer = some_or_return!(&mut timer_res.0);
     timer.tick(time.delta());
 
     if timer.finished() {
         ev_timer_expired.send(TimerExpiredEvent);
+        timer_res.0 = None;
     }
 }
