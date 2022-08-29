@@ -1,5 +1,10 @@
 use bevy::prelude::*;
-use bevy_inspector_egui::{Inspectable, RegisterInspectable};
+
+#[cfg(debug_assertions)]
+use bevy_inspector_egui::RegisterInspectable;
+
+use bevy_inspector_egui::Inspectable;
+
 use ctrl_macros::{ok_or_return, some_or_return};
 use serde::Deserialize;
 
@@ -16,13 +21,13 @@ pub struct Goal;
 #[derive(Component)]
 pub struct Trap;
 
-#[derive(Component, Inspectable, Copy, Clone, PartialEq, Eq)]
+#[derive(Component, Copy, Clone, PartialEq, Eq, Inspectable)]
 pub struct GridPos {
     pub x: i32,
     pub y: i32,
 }
 
-#[derive(Component, Inspectable, Copy, Clone, Deserialize)]
+#[derive(Component, Copy, Clone, Deserialize, Inspectable)]
 pub enum GameColor {
     Red,
     Green,
@@ -57,11 +62,9 @@ impl Plugin for GameMechanicsPlugin {
             .add_event::<PlayerMovedEvent>()
             .add_event::<TimerExpiredEvent>();
 
-        const DEBUG: bool = true;
-        if DEBUG {
-            app.register_inspectable::<GridPos>()
-                .register_inspectable::<GameColor>();
-        }
+        #[cfg(debug_assertions)]
+        app.register_inspectable::<GridPos>()
+            .register_inspectable::<GameColor>();
     }
 }
 
