@@ -101,14 +101,29 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
 }
 
 fn text_update_system(timer: Res<GameTimer>, mut query: Query<&mut Text, With<TimerText>>) {
+    let mut one_second = false;
+    let mut two_seconds = false;
     let timer_text = match &timer.0 {
-        Some(timer) => format!(
-            "Timer: {:.0}",
-            (timer.duration().as_millis() as f32 / 1000.0) - timer.elapsed_secs() + 0.5
-        ),
+        Some(timer) => {
+            let remaining = (timer.duration().as_millis() as f32 / 1000.0) - timer.elapsed_secs();
+            if remaining <= 1.0 {
+                one_second = true;
+            } else if remaining <= 2.0 {
+                two_seconds = true;
+            }
+            format!("Timer: {:.0}", remaining + 0.5)
+        }
         None => "".to_owned(),
     };
     for mut text in &mut query {
         text.sections[0].value = timer_text.clone();
+
+        text.sections[0].style.color = if one_second {
+            Color::rgb(1.0, 0.0, 0.0)
+        } else if two_seconds {
+            Color::rgb(1.0, 1.0, 0.0)
+        } else {
+            Color::rgb(1.0, 1.0, 1.0)
+        }
     }
 }
