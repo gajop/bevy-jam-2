@@ -28,7 +28,7 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
                 position_type: PositionType::Absolute,
 
                 position: UiRect {
-                    left: Val::Percent(50.0),
+                    left: Val::Percent(45.0),
                     bottom: Val::Percent(0.0),
                     ..default()
                 },
@@ -53,8 +53,8 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
             position_type: PositionType::Absolute,
 
             position: UiRect {
-                bottom: Val::Percent(0.0),
-                left: Val::Percent(0.0),
+                top: Val::Percent(0.0),
+                right: Val::Percent(0.0),
                 ..default()
             },
             ..default()
