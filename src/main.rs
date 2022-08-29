@@ -30,6 +30,7 @@ fn main() {
 
     app.insert_resource(WindowDescriptor {
         mode: WindowMode::Windowed,
+        title: "RGB".to_owned(),
         // mode: WindowMode::BorderlessFullscreen,
         ..default()
     })
