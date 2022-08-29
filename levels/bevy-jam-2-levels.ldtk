@@ -815,10 +815,10 @@
 			"__neighbours": [ { "levelIid": "60c5b550-02f0-11ed-b717-054c06595c46", "levelUid": 32, "dir": "s" }, { "levelIid": "6042a1c2-02f0-11ed-b6e7-fd7a2a338a9a", "levelUid": 9, "dir": "e" } ]
 		},
 		{
-			"identifier": "Level_2",
+			"identifier": "Level_4",
 			"iid": "def681d1-02f0-11ed-b717-a5faea02fa1f",
 			"uid": 30,
-			"worldX": 256,
+			"worldX": 512,
 			"worldY": 64,
 			"worldDepth": 0,
 			"pxWid": 128,
@@ -1198,17 +1198,13 @@
 					]
 				}
 			],
-			"__neighbours": [
-				{ "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "e" },
-				{ "levelIid": "e6b23941-02f0-11ed-b717-832637c5b3c9", "levelUid": 33, "dir": "s" },
-				{ "levelIid": "6042a1c2-02f0-11ed-b6e7-fd7a2a338a9a", "levelUid": 9, "dir": "w" }
-			]
+			"__neighbours": [ { "levelIid": "4272e920-02f0-11ed-b717-efc98a1b3e1b", "levelUid": 28, "dir": "w" }, { "levelIid": "09b19300-02f0-11ed-b717-e7bab95c974a", "levelUid": 35, "dir": "s" } ]
 		},
 		{
-			"identifier": "Level_4",
+			"identifier": "Level_3",
 			"iid": "4272e920-02f0-11ed-b717-efc98a1b3e1b",
 			"uid": 28,
-			"worldX": 512,
+			"worldX": 384,
 			"worldY": 64,
 			"worldDepth": 0,
 			"pxWid": 128,
@@ -1490,7 +1486,11 @@
 					]
 				}
 			],
-			"__neighbours": [ { "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "w" }, { "levelIid": "09b19300-02f0-11ed-b717-e7bab95c974a", "levelUid": 35, "dir": "s" } ]
+			"__neighbours": [
+				{ "levelIid": "def681d1-02f0-11ed-b717-a5faea02fa1f", "levelUid": 30, "dir": "e" },
+				{ "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "w" },
+				{ "levelIid": "e92694a1-02f0-11ed-b717-c14c2d45e282", "levelUid": 34, "dir": "s" }
+			]
 		},
 		{
 			"identifier": "Level_5",
@@ -1991,10 +1991,10 @@
 			"__neighbours": [ { "levelIid": "a8245801-02f0-11ed-b6e7-c911cbb083dc", "levelUid": 0, "dir": "n" }, { "levelIid": "63d1bbf2-02f0-11ed-b6e7-577fa5d0f2f7", "levelUid": 10, "dir": "e" } ]
 		},
 		{
-			"identifier": "Level_3",
+			"identifier": "Level_2",
 			"iid": "0e962081-02f0-11ed-b717-e191560ca537",
 			"uid": 31,
-			"worldX": 384,
+			"worldX": 256,
 			"worldY": 64,
 			"worldDepth": 0,
 			"pxWid": 128,
@@ -2067,9 +2067,9 @@
 				}
 			],
 			"__neighbours": [
-				{ "levelIid": "def681d1-02f0-11ed-b717-a5faea02fa1f", "levelUid": 30, "dir": "w" },
 				{ "levelIid": "4272e920-02f0-11ed-b717-efc98a1b3e1b", "levelUid": 28, "dir": "e" },
-				{ "levelIid": "e92694a1-02f0-11ed-b717-c14c2d45e282", "levelUid": 34, "dir": "s" }
+				{ "levelIid": "e6b23941-02f0-11ed-b717-832637c5b3c9", "levelUid": 33, "dir": "s" },
+				{ "levelIid": "6042a1c2-02f0-11ed-b6e7-fd7a2a338a9a", "levelUid": 9, "dir": "w" }
 			]
 		},
 		{
@@ -2611,7 +2611,7 @@
 				}
 			],
 			"__neighbours": [
-				{ "levelIid": "def681d1-02f0-11ed-b717-a5faea02fa1f", "levelUid": 30, "dir": "n" },
+				{ "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "n" },
 				{ "levelIid": "e92694a1-02f0-11ed-b717-c14c2d45e282", "levelUid": 34, "dir": "e" },
 				{ "levelIid": "63d1bbf2-02f0-11ed-b6e7-577fa5d0f2f7", "levelUid": 10, "dir": "w" }
 			]
@@ -3113,7 +3113,7 @@
 				}
 			],
 			"__neighbours": [
-				{ "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "n" },
+				{ "levelIid": "4272e920-02f0-11ed-b717-efc98a1b3e1b", "levelUid": 28, "dir": "n" },
 				{ "levelIid": "e6b23941-02f0-11ed-b717-832637c5b3c9", "levelUid": 33, "dir": "w" },
 				{ "levelIid": "09b19300-02f0-11ed-b717-e7bab95c974a", "levelUid": 35, "dir": "e" }
 			]
@@ -3642,7 +3642,7 @@
 					]
 				}
 			],
-			"__neighbours": [ { "levelIid": "4272e920-02f0-11ed-b717-efc98a1b3e1b", "levelUid": 28, "dir": "n" }, { "levelIid": "e92694a1-02f0-11ed-b717-c14c2d45e282", "levelUid": 34, "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "def681d1-02f0-11ed-b717-a5faea02fa1f", "levelUid": 30, "dir": "n" }, { "levelIid": "e92694a1-02f0-11ed-b717-c14c2d45e282", "levelUid": 34, "dir": "w" } ]
 		},
 		{
 			"identifier": "Level_1",
@@ -3876,7 +3876,7 @@
 			],
 			"__neighbours": [
 				{ "levelIid": "a8245801-02f0-11ed-b6e7-c911cbb083dc", "levelUid": 0, "dir": "w" },
-				{ "levelIid": "def681d1-02f0-11ed-b717-a5faea02fa1f", "levelUid": 30, "dir": "e" },
+				{ "levelIid": "0e962081-02f0-11ed-b717-e191560ca537", "levelUid": 31, "dir": "e" },
 				{ "levelIid": "63d1bbf2-02f0-11ed-b6e7-577fa5d0f2f7", "levelUid": 10, "dir": "s" }
 			]
 		},

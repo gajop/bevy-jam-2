@@ -76,22 +76,22 @@ fn movement_system(
     let mut pos = ok_or_return!(q_player_pos.get_single_mut());
 
     let mut moved = false;
-    if keys.just_pressed(KeyCode::W) {
+    if keys.just_pressed(KeyCode::W) || keys.just_pressed(KeyCode::Up) {
         if pos.y < GRID_SIZE_Y - 1 {
             pos.y += 1;
             moved = true;
         }
-    } else if keys.just_pressed(KeyCode::A) {
+    } else if keys.just_pressed(KeyCode::A) || keys.just_pressed(KeyCode::Left) {
         if pos.x > 0 {
             pos.x -= 1;
             moved = true;
         }
-    } else if keys.just_pressed(KeyCode::S) {
+    } else if keys.just_pressed(KeyCode::S) || keys.just_pressed(KeyCode::Down) {
         if pos.y > 0 {
             pos.y -= 1;
             moved = true;
         }
-    } else if keys.just_pressed(KeyCode::D) {
+    } else if keys.just_pressed(KeyCode::D) || keys.just_pressed(KeyCode::Right) {
         #[allow(clippy::collapsible_if)]
         if pos.x < GRID_SIZE_X - 1 {
             pos.x += 1;

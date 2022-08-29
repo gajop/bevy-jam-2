@@ -118,6 +118,112 @@
 			]
 		},
 		{
+			"traps": [],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "Red"
+			},
+			"goals": [
+				{
+					"x": 6,
+					"y": 9,
+					"color": "Blue"
+				}
+			]
+		},
+		{
+			"traps": [
+				{
+					"x": 5,
+					"y": 3,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 5,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 1,
+					"y": 7,
+					"color": "Green"
+				},
+				{
+					"x": 2,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 3,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 4,
+					"y": 8,
+					"color": "Green"
+				},
+				{
+					"x": 5,
+					"y": 6,
+					"color": "Green"
+				},
+				{
+					"x": 7,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 4,
+					"color": "Green"
+				},
+				{
+					"x": 6,
+					"y": 7,
+					"color": "Green"
+				}
+			],
+			"player": {
+				"x": 3,
+				"y": 2,
+				"color": "Red"
+			},
+			"goals": [
+				{
+					"x": 3,
+					"y": 7,
+					"color": "White"
+				}
+			]
+		},
+		{
 			"traps": [
 				{
 					"x": 0,
@@ -240,112 +346,6 @@
 					"x": 6,
 					"y": 1,
 					"color": "Blue"
-				}
-			]
-		},
-		{
-			"traps": [],
-			"player": {
-				"x": 3,
-				"y": 2,
-				"color": "Red"
-			},
-			"goals": [
-				{
-					"x": 6,
-					"y": 9,
-					"color": "Blue"
-				}
-			]
-		},
-		{
-			"traps": [
-				{
-					"x": 5,
-					"y": 3,
-					"color": "Green"
-				},
-				{
-					"x": 5,
-					"y": 4,
-					"color": "Green"
-				},
-				{
-					"x": 4,
-					"y": 4,
-					"color": "Green"
-				},
-				{
-					"x": 4,
-					"y": 5,
-					"color": "Green"
-				},
-				{
-					"x": 3,
-					"y": 5,
-					"color": "Green"
-				},
-				{
-					"x": 2,
-					"y": 5,
-					"color": "Green"
-				},
-				{
-					"x": 1,
-					"y": 6,
-					"color": "Green"
-				},
-				{
-					"x": 1,
-					"y": 7,
-					"color": "Green"
-				},
-				{
-					"x": 2,
-					"y": 8,
-					"color": "Green"
-				},
-				{
-					"x": 3,
-					"y": 8,
-					"color": "Green"
-				},
-				{
-					"x": 4,
-					"y": 8,
-					"color": "Green"
-				},
-				{
-					"x": 5,
-					"y": 6,
-					"color": "Green"
-				},
-				{
-					"x": 7,
-					"y": 4,
-					"color": "Green"
-				},
-				{
-					"x": 6,
-					"y": 4,
-					"color": "Green"
-				},
-				{
-					"x": 6,
-					"y": 7,
-					"color": "Green"
-				}
-			],
-			"player": {
-				"x": 3,
-				"y": 2,
-				"color": "Red"
-			},
-			"goals": [
-				{
-					"x": 3,
-					"y": 7,
-					"color": "White"
 				}
 			]
 		},

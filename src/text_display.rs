@@ -43,7 +43,7 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     commands.spawn_bundle(
         TextBundle::from_section(
-            "Controls: WASD for movement
+            "Controls: WASD or Arrow Keys for movement
 			Reach the goal (ring) without hitting any walls",
             TextStyle {
                 font: asset_server.load("fonts/FiraSans-Bold.ttf"),
