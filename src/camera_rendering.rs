@@ -18,15 +18,21 @@ use crate::game_mechanics::{GRID_SIZE_X, GRID_SIZE_Y};
 
 pub struct CameraRendering;
 
+#[derive(Component)]
+struct CameraStuff;
+
 impl Plugin for CameraRendering {
     fn build(&self, app: &mut App) {
         app.add_plugin(Material2dPlugin::<PostProcessingMaterialRed>::default())
             .add_plugin(Material2dPlugin::<PostProcessingMaterialGreen>::default())
             .add_plugin(Material2dPlugin::<PostProcessingMaterialBlue>::default())
+            .add_startup_system(setup_main_camera)
             .add_startup_system(setup)
             .add_startup_system(setup_cameras)
             .add_startup_system(spawn_first_level)
-            .add_system(set_camera_viewports);
+            // .add_system(set_camera_viewports)
+            .add_system(recreate_on_resize);
+        // .add_system(resize_camera_sprites);
     }
 }
 
@@ -45,23 +51,16 @@ fn setup_cameras(
     mut post_processing_materials_green: ResMut<Assets<PostProcessingMaterialGreen>>,
     mut post_processing_materials_blue: ResMut<Assets<PostProcessingMaterialBlue>>,
     mut meshes: ResMut<Assets<Mesh>>,
-    // mut windows: ResMut<Windows>,
+    mut windows: ResMut<Windows>,
 ) {
-    // let window = windows.get_primary_mut().unwrap();
-    // window.set_maximized(true);
-    // let size = Extent3d {
-    //     width: window.physical_width(),
-    //     height: window.physical_height(),
-    //     ..default()
-    // };
+    let window = windows.get_primary_mut().unwrap();
     let size = Extent3d {
-        width: 1980,
-        height: 1080,
+        width: window.physical_width(),
+        height: window.physical_height(),
         ..default()
     };
 
     for i in 0..3 {
-        // This is the texture that will be rendered to.
         let mut image = Image {
             texture_descriptor: TextureDescriptor {
                 label: None,
@@ -101,12 +100,14 @@ fn setup_cameras(
                         source_image: image_handle.clone(),
                     });
 
-                commands.spawn_bundle(MaterialMesh2dBundle {
-                    mesh: quad_handle.into(),
-                    material: material_handle,
-                    transform,
-                    ..default()
-                });
+                commands
+                    .spawn_bundle(MaterialMesh2dBundle {
+                        mesh: quad_handle.into(),
+                        material: material_handle,
+                        transform,
+                        ..default()
+                    })
+                    .insert(CameraStuff);
             }
             1 => {
                 let material_handle =
@@ -114,12 +115,14 @@ fn setup_cameras(
                         source_image: image_handle.clone(),
                     });
 
-                commands.spawn_bundle(MaterialMesh2dBundle {
-                    mesh: quad_handle.into(),
-                    material: material_handle,
-                    transform,
-                    ..default()
-                });
+                commands
+                    .spawn_bundle(MaterialMesh2dBundle {
+                        mesh: quad_handle.into(),
+                        material: material_handle,
+                        transform,
+                        ..default()
+                    })
+                    .insert(CameraStuff);
             }
             2 => {
                 let material_handle =
@@ -127,12 +130,14 @@ fn setup_cameras(
                         source_image: image_handle.clone(),
                     });
 
-                commands.spawn_bundle(MaterialMesh2dBundle {
-                    mesh: quad_handle.into(),
-                    material: material_handle,
-                    transform,
-                    ..default()
-                });
+                commands
+                    .spawn_bundle(MaterialMesh2dBundle {
+                        mesh: quad_handle.into(),
+                        material: material_handle,
+                        transform,
+                        ..default()
+                    })
+                    .insert(CameraStuff);
             }
             _ => {
                 continue;
@@ -141,7 +146,6 @@ fn setup_cameras(
 
         let mut cmd = commands.spawn_bundle(Camera3dBundle {
             camera_3d: Camera3d {
-                // don't clear on the second camera because the first camera already cleared the window
                 clear_color: ClearColorConfig::Default,
                 ..default()
             },
@@ -150,13 +154,22 @@ fn setup_cameras(
             camera: Camera {
                 target: RenderTarget::Image(image_handle.clone()),
                 priority: -1,
+                viewport: Some(Viewport {
+                    physical_position: UVec2::new((i as u32) * window.physical_width() / 3, 0),
+                    physical_size: UVec2::new(
+                        window.physical_width() / 3,
+                        window.physical_height(),
+                    ),
+                    ..default()
+                }),
                 ..default()
             },
             transform: Transform::from_xyz(3.0, 35.0, 12.0)
                 .looking_at(Vec3::new(3.0, 10.0, 5.0), Vec3::Y),
+
             ..default()
         });
-        cmd.insert(RenderLayers::layer(i + 1));
+        cmd.insert(RenderLayers::layer(i + 1)).insert(CameraStuff);
 
         match i {
             0 => {
@@ -174,8 +187,20 @@ fn setup_cameras(
             _ => continue,
         };
     }
+}
 
+fn setup_main_camera(mut commands: Commands) {
     commands.spawn_bundle(Camera2dBundle::default());
+    // commands.spawn_bundle(Camera2dBundle {
+    //     camera: todo!(),
+    //     camera_render_graph: todo!(),
+    //     projection: todo!(),
+    //     visible_entities: todo!(),
+    //     frustum: todo!(),
+    //     transform: todo!(),
+    //     global_transform: todo!(),
+    //     camera_2d: todo!(),
+    // });
 }
 
 fn setup(mut commands: Commands) {
@@ -273,45 +298,107 @@ struct GreenCamera;
 #[derive(Component)]
 struct BlueCamera;
 
-fn set_camera_viewports(
-    windows: Res<Windows>,
+// fn set_camera_viewports(
+//     windows: Res<Windows>,
+//     mut resize_events: EventReader<WindowResized>,
+//     mut red_camera: Query<
+//         &mut Camera,
+//         (With<RedCamera>, Without<BlueCamera>, Without<GreenCamera>),
+//     >,
+//     mut green_camera: Query<
+//         &mut Camera,
+//         (With<GreenCamera>, Without<RedCamera>, Without<BlueCamera>),
+//     >,
+//     mut blue_camera: Query<
+//         &mut Camera,
+//         (With<BlueCamera>, Without<RedCamera>, Without<GreenCamera>),
+//     >,
+// ) {
+//     for resize_event in resize_events.iter() {
+//         if resize_event.id == WindowId::primary() {
+//             let window = windows.primary();
+//             let mut red_camera = red_camera.single_mut();
+//             red_camera.viewport = Some(Viewport {
+//                 physical_position: UVec2::new(0, 0),
+//                 physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
+//                 ..default()
+//             });
+
+//             let mut green_camera = green_camera.single_mut();
+//             green_camera.viewport = Some(Viewport {
+//                 physical_position: UVec2::new(window.physical_width() / 3, 0),
+//                 physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
+//                 ..default()
+//             });
+
+//             let mut blue_camera = blue_camera.single_mut();
+//             blue_camera.viewport = Some(Viewport {
+//                 physical_position: UVec2::new(2 * window.physical_width() / 3, 0),
+//                 physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
+//                 ..default()
+//             });
+//         }
+//     }
+// }
+
+// fn resize_camera_sprites(
+//     windows: Res<Windows>,
+//     mut resize_events: EventReader<WindowResized>,
+//     mut q_camera_sprite_transform: Query<&mut Transform, With<CameraSprite>>,
+// ) {
+//     for resize_event in resize_events.iter() {
+//         if resize_event.id != WindowId::primary() {
+//             continue;
+//         }
+//         let window = windows.primary();
+//         let size = Extent3d {
+//             width: window.physical_width(),
+//             height: window.physical_height(),
+//             ..default()
+//         };
+
+//         for (i, mut transform) in q_camera_sprite_transform.iter_mut().enumerate() {
+//             transform.translation.x = (size.width as f32 / 3.0 + 5.0) * (i as f32 - 1.0);
+//         }
+//     }
+// }
+
+fn recreate_on_resize(
+    images: ResMut<Assets<Image>>,
+    mut commands: Commands,
+    post_processing_materials_red: ResMut<Assets<PostProcessingMaterialRed>>,
+    post_processing_materials_green: ResMut<Assets<PostProcessingMaterialGreen>>,
+    post_processing_materials_blue: ResMut<Assets<PostProcessingMaterialBlue>>,
+    meshes: ResMut<Assets<Mesh>>,
+    windows: ResMut<Windows>,
     mut resize_events: EventReader<WindowResized>,
-    mut red_camera: Query<
-        &mut Camera,
-        (With<RedCamera>, Without<BlueCamera>, Without<GreenCamera>),
-    >,
-    mut green_camera: Query<
-        &mut Camera,
-        (With<GreenCamera>, Without<RedCamera>, Without<BlueCamera>),
-    >,
-    mut blue_camera: Query<
-        &mut Camera,
-        (With<BlueCamera>, Without<RedCamera>, Without<GreenCamera>),
-    >,
+    q_camera_stuff: Query<Entity, With<CameraStuff>>,
 ) {
+    let mut has_resize = false;
     for resize_event in resize_events.iter() {
-        if resize_event.id == WindowId::primary() {
-            let window = windows.primary();
-            let mut red_camera = red_camera.single_mut();
-            red_camera.viewport = Some(Viewport {
-                physical_position: UVec2::new(0, 0),
-                physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
-                ..default()
-            });
-
-            let mut green_camera = green_camera.single_mut();
-            green_camera.viewport = Some(Viewport {
-                physical_position: UVec2::new(window.physical_width() / 3, 0),
-                physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
-                ..default()
-            });
-
-            let mut blue_camera = blue_camera.single_mut();
-            blue_camera.viewport = Some(Viewport {
-                physical_position: UVec2::new(2 * window.physical_width() / 3, 0),
-                physical_size: UVec2::new(window.physical_width() / 3, window.physical_height()),
-                ..default()
-            });
+        if resize_event.id != WindowId::primary() {
+            continue;
         }
+        has_resize = true;
     }
+
+    // CameraStuff
+
+    if !has_resize {
+        return;
+    }
+
+    for entity in q_camera_stuff.iter() {
+        commands.entity(entity).despawn();
+    }
+
+    setup_cameras(
+        images,
+        commands,
+        post_processing_materials_red,
+        post_processing_materials_green,
+        post_processing_materials_blue,
+        meshes,
+        windows,
+    );
 }
