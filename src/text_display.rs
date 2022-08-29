@@ -100,10 +100,14 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
     );
 }
 
-fn text_update_system(timer: Res<GameTimer>, mut query: Query<&mut Text, With<TimerText>>) {
+fn text_update_system(
+    timer: Res<GameTimer>,
+    mut query: Query<&mut Text, With<TimerText>>,
+    level_info: Res<LevelInfo>,
+) {
     let mut one_second = false;
     let mut two_seconds = false;
-    let timer_text = match &timer.0 {
+    let mut timer_text = match &timer.0 {
         Some(timer) => {
             let remaining = (timer.duration().as_millis() as f32 / 1000.0) - timer.elapsed_secs();
             if remaining <= 1.0 {
@@ -115,6 +119,11 @@ fn text_update_system(timer: Res<GameTimer>, mut query: Query<&mut Text, With<Ti
         }
         None => "".to_owned(),
     };
+
+    if level_info.index == Some(level_info.total_levels as i32) {
+        timer_text = "".to_owned();
+    }
+
     for mut text in &mut query {
         text.sections[0].value = timer_text.clone();
 
