@@ -64,6 +64,7 @@ impl Plugin for GameMechanicsPlugin {
         }
     }
 }
+
 fn movement_system(
     mut q_player_pos: Query<&mut GridPos, With<Player>>,
     keys: Res<Input<KeyCode>>,

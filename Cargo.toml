@@ -2,7 +2,7 @@
 authors = ["Gajo Petrovic <gajopetrovic@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
-name = "bevy-jam-2"
+name = "rgb"
 version = "0.1.0"
 
 [dependencies]
