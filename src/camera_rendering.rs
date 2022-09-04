@@ -169,7 +169,9 @@ fn setup_cameras(
 
             ..default()
         });
-        cmd.insert(RenderLayers::layer(i + 1)).insert(CameraStuff);
+        cmd.insert(RenderLayers::layer(i + 1))
+            .insert(CameraStuff)
+            .insert(UiCameraConfig { show_ui: false });
 
         match i {
             0 => {

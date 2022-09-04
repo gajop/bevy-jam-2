@@ -32,6 +32,7 @@ fn main() {
         mode: WindowMode::Windowed,
         title: "RGB".to_owned(),
         // mode: WindowMode::BorderlessFullscreen,
+        scale_factor_override: Some(1.0),
         ..default()
     })
     .add_plugins(DefaultPlugins);
