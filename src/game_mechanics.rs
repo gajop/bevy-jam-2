@@ -48,6 +48,7 @@ pub struct PlayerMovedEvent;
 
 pub struct TimerExpiredEvent;
 
+#[derive(Resource)]
 pub struct GameTimer(pub Option<Timer>);
 
 impl Plugin for GameMechanicsPlugin {

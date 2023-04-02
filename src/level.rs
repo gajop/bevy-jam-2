@@ -36,12 +36,16 @@ struct Level {
     traps: Vec<LevelTrap>,
 }
 
-#[derive(Deserialize, bevy::reflect::TypeUuid)]
+#[derive(Resource)]
+struct LevelsHandle(Handle<Levels>);
+
+#[derive(Deserialize, bevy::reflect::TypeUuid, Resource)]
 #[uuid = "413be529-bfeb-41b3-9db0-4b8b380a2c46"] // <-- keep me unique
 struct Levels {
     levels: Vec<Level>,
 }
 
+#[derive(Resource)]
 pub struct LevelInfo {
     pub desired_index: Option<i32>,
     pub index: Option<i32>,
@@ -69,7 +73,7 @@ impl Plugin for LevelPlugin {
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let handle: Handle<Levels> = asset_server.load("levels.level.json");
-    commands.insert_resource(handle);
+    commands.insert_resource(LevelsHandle(handle));
 }
 
 fn load_first_level(mut level_info: ResMut<LevelInfo>) {
@@ -107,7 +111,7 @@ fn go_to_next_level_on_goal(
 
 fn load_level_on_level_change(
     mut commands: Commands,
-    handle: Res<Handle<Levels>>,
+    handle: Res<LevelsHandle>,
     levels: Res<Assets<Levels>>,
 
     mut level_info: ResMut<LevelInfo>,
@@ -120,7 +124,7 @@ fn load_level_on_level_change(
         return;
     }
 
-    let levels = some_or_return!(levels.get(&handle));
+    let levels = some_or_return!(levels.get(&handle.0));
 
     for entity in q_existing_objects.iter() {
         commands.entity(entity).despawn();
@@ -144,7 +148,7 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
     let player = &level.player;
 
     commands
-        .spawn()
+        .spawn_empty()
         .insert(Player)
         .insert(GridPos {
             x: player.x,
@@ -155,7 +159,7 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
 
     for goal in &level.goals {
         commands
-            .spawn()
+            .spawn_empty()
             .insert(Goal)
             .insert(GridPos {
                 x: goal.x,
@@ -167,7 +171,7 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
 
     for trap in &level.traps {
         commands
-            .spawn()
+            .spawn_empty()
             .insert(Trap)
             .insert(GridPos {
                 x: trap.x,
@@ -177,5 +181,5 @@ fn spawn_level(mut commands: Commands, level: &Level, mut timer: ResMut<GameTime
             .insert(Name::new("Trap"));
     }
 
-    timer.0 = Some(Timer::from_seconds(25.0, false));
+    timer.0 = Some(Timer::from_seconds(25.0, TimerMode::Once));
 }

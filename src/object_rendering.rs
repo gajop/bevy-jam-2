@@ -89,7 +89,7 @@ fn spawn_world_object(
         ..default()
     });
 
-    commands.entity(entity).insert_bundle(PbrBundle {
+    commands.entity(entity).insert(PbrBundle {
         mesh,
         material: material_handle,
         transform: Transform::from_translation(grid_to_translation(pos)),

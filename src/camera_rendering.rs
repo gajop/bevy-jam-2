@@ -87,11 +87,8 @@ fn setup_cameras(
         ))));
 
         // This material has the texture that has been rendered.
-        let transform = Transform::from_xyz(
-            ((size.width as f32 / 3.0 + 5.0) * (i as f32 - 1.0)) as f32,
-            0.,
-            0.,
-        );
+        let transform =
+            Transform::from_xyz((size.width as f32 / 3.0 + 5.0) * (i as f32 - 1.0), 0., 0.);
 
         match i {
             0 => {
@@ -101,7 +98,7 @@ fn setup_cameras(
                     });
 
                 commands
-                    .spawn_bundle(MaterialMesh2dBundle {
+                    .spawn(MaterialMesh2dBundle {
                         mesh: quad_handle.into(),
                         material: material_handle,
                         transform,
@@ -116,7 +113,7 @@ fn setup_cameras(
                     });
 
                 commands
-                    .spawn_bundle(MaterialMesh2dBundle {
+                    .spawn(MaterialMesh2dBundle {
                         mesh: quad_handle.into(),
                         material: material_handle,
                         transform,
@@ -131,7 +128,7 @@ fn setup_cameras(
                     });
 
                 commands
-                    .spawn_bundle(MaterialMesh2dBundle {
+                    .spawn(MaterialMesh2dBundle {
                         mesh: quad_handle.into(),
                         material: material_handle,
                         transform,
@@ -144,7 +141,7 @@ fn setup_cameras(
             }
         };
 
-        let mut cmd = commands.spawn_bundle(Camera3dBundle {
+        let mut cmd = commands.spawn(Camera3dBundle {
             camera_3d: Camera3d {
                 clear_color: ClearColorConfig::Default,
                 ..default()
@@ -192,8 +189,8 @@ fn setup_cameras(
 }
 
 fn setup_main_camera(mut commands: Commands) {
-    commands.spawn_bundle(Camera2dBundle::default());
-    // commands.spawn_bundle(Camera2dBundle {
+    commands.spawn(Camera2dBundle::default());
+    // commands.spawn(Camera2dBundle {
     //     camera: todo!(),
     //     camera_render_graph: todo!(),
     //     projection: todo!(),
@@ -206,7 +203,7 @@ fn setup_main_camera(mut commands: Commands) {
 }
 
 fn setup(mut commands: Commands) {
-    commands.spawn_bundle(PointLightBundle {
+    commands.spawn(PointLightBundle {
         point_light: PointLight {
             intensity: 1500.0,
             shadows_enabled: true,
@@ -230,14 +227,14 @@ fn spawn_first_level(
     let element_size = 0.95;
     let padding = 0.05;
 
-    for i in 0..GRID_SIZE_X as i32 {
-        for j in 0..GRID_SIZE_Y as i32 {
+    for i in 0..GRID_SIZE_X {
+        for j in 0..GRID_SIZE_Y {
             let x = i as f32;
             let y = j as f32;
             let x = x * (element_size + padding);
             let y = y * (element_size + padding);
             commands
-                .spawn_bundle(PbrBundle {
+                .spawn(PbrBundle {
                     mesh: meshes.add(Mesh::from(shape::Cube { size: element_size })),
                     material: material_handle.clone(),
                     transform: Transform::from_xyz(x, 0.0, y),

@@ -2,8 +2,6 @@ use audio::AudioPlugin;
 use bevy::{prelude::*, window::WindowMode};
 
 #[cfg(debug_assertions)]
-use bevy::asset::AssetServerSettings;
-#[cfg(debug_assertions)]
 use bevy_inspector_egui::WorldInspectorPlugin;
 
 use camera_rendering::CameraRendering;
@@ -22,20 +20,24 @@ mod text_display;
 fn main() {
     let mut app = App::new();
 
+    let default_plugins = DefaultPlugins.set(WindowPlugin {
+        window: WindowDescriptor {
+            mode: WindowMode::Windowed,
+            title: "RGB".to_owned(),
+            // mode: WindowMode::BorderlessFullscreen,
+            scale_factor_override: Some(1.0),
+            ..default()
+        },
+        ..default()
+    });
+
     #[cfg(debug_assertions)]
-    app.insert_resource(AssetServerSettings {
+    let default_plugins = default_plugins.set(AssetPlugin {
         watch_for_changes: true,
         ..default()
     });
 
-    app.insert_resource(WindowDescriptor {
-        mode: WindowMode::Windowed,
-        title: "RGB".to_owned(),
-        // mode: WindowMode::BorderlessFullscreen,
-        scale_factor_override: Some(1.0),
-        ..default()
-    })
-    .add_plugins(DefaultPlugins);
+    app.add_plugins(default_plugins);
 
     #[cfg(debug_assertions)]
     app.add_plugin(WorldInspectorPlugin::new());

@@ -17,7 +17,7 @@ struct TimerText;
 
 fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
-        .spawn_bundle(
+        .spawn(
             TextBundle::from_section(
                 "Time: ",
                 TextStyle {
@@ -41,7 +41,7 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
         )
         .insert(TimerText);
 
-    commands.spawn_bundle(
+    commands.spawn(
         TextBundle::from_section(
             "Controls: WASD or Arrow Keys for movement
 			Reach the goal (ring) without hitting any walls",
@@ -74,7 +74,7 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
     if level_info.index != Some(level_info.total_levels as i32) {
         return;
     }
-    commands.spawn_bundle(
+    commands.spawn(
         TextBundle::from_section(
             "Congratulations! You win
 
