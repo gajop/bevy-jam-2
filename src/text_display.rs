@@ -26,7 +26,7 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
                     color: Color::WHITE,
                 },
             )
-            .with_text_alignment(TextAlignment::TOP_CENTER)
+            .with_text_alignment(TextAlignment::Center)
             .with_style(Style {
                 align_self: AlignSelf::FlexEnd,
                 position_type: PositionType::Absolute,
@@ -51,7 +51,7 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
                 color: Color::WHITE,
             },
         )
-        .with_text_alignment(TextAlignment::CENTER_RIGHT)
+        .with_text_alignment(TextAlignment::Center)
         .with_style(Style {
             align_self: AlignSelf::FlexEnd,
             position_type: PositionType::Absolute,
@@ -85,7 +85,7 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
                 color: Color::WHITE,
             },
         )
-        .with_text_alignment(TextAlignment::CENTER_RIGHT)
+        .with_text_alignment(TextAlignment::Center)
         .with_style(Style {
             align_self: AlignSelf::FlexEnd,
             position_type: PositionType::Absolute,

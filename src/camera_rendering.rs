@@ -11,8 +11,9 @@ use bevy::{
         view::RenderLayers,
     },
     sprite::{Material2d, Material2dPlugin, MaterialMesh2dBundle},
-    window::{WindowId, WindowResized},
+    window::{PrimaryWindow, WindowResized},
 };
+use ctrl_macros::ok_or_return;
 
 use crate::game_mechanics::{GRID_SIZE_X, GRID_SIZE_Y};
 
@@ -51,9 +52,9 @@ fn setup_cameras(
     mut post_processing_materials_green: ResMut<Assets<PostProcessingMaterialGreen>>,
     mut post_processing_materials_blue: ResMut<Assets<PostProcessingMaterialBlue>>,
     mut meshes: ResMut<Assets<Mesh>>,
-    mut windows: ResMut<Windows>,
+    q_window: Query<(Entity, &Window), With<PrimaryWindow>>,
 ) {
-    let window = windows.get_primary_mut().unwrap();
+    let window = ok_or_return!(q_window.get_single()).1;
     let size = Extent3d {
         width: window.physical_width(),
         height: window.physical_height(),
@@ -72,6 +73,8 @@ fn setup_cameras(
                 usage: TextureUsages::TEXTURE_BINDING
                     | TextureUsages::COPY_DST
                     | TextureUsages::RENDER_ATTACHMENT,
+
+                view_formats: &[],
             },
             ..default()
         };
@@ -150,7 +153,7 @@ fn setup_cameras(
             // camera_2d: Camera2d
             camera: Camera {
                 target: RenderTarget::Image(image_handle.clone()),
-                priority: -1,
+                order: -1,
                 viewport: Some(Viewport {
                     physical_position: UVec2::new((i as u32) * window.physical_width() / 3, 0),
                     physical_size: UVec2::new(
@@ -369,13 +372,15 @@ fn recreate_on_resize(
     post_processing_materials_green: ResMut<Assets<PostProcessingMaterialGreen>>,
     post_processing_materials_blue: ResMut<Assets<PostProcessingMaterialBlue>>,
     meshes: ResMut<Assets<Mesh>>,
-    windows: ResMut<Windows>,
+    q_window: Query<(Entity, &Window), With<PrimaryWindow>>,
     mut resize_events: EventReader<WindowResized>,
     q_camera_stuff: Query<Entity, With<CameraStuff>>,
 ) {
+    let window_entity = ok_or_return!(q_window.get_single()).0;
     let mut has_resize = false;
     for resize_event in resize_events.iter() {
-        if resize_event.id != WindowId::primary() {
+        // TODO: Check if I should use let window = ok_or_return!(q_window.get_single());
+        if resize_event.window != window_entity {
             continue;
         }
         has_resize = true;
@@ -400,6 +405,6 @@ fn recreate_on_resize(
         post_processing_materials_green,
         post_processing_materials_blue,
         meshes,
-        windows,
+        q_window,
     );
 }

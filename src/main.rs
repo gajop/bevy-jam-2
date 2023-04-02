@@ -2,7 +2,7 @@ use audio::AudioPlugin;
 use bevy::{prelude::*, window::WindowMode};
 
 #[cfg(debug_assertions)]
-use bevy_inspector_egui::WorldInspectorPlugin;
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
 use camera_rendering::CameraRendering;
 use game_mechanics::GameMechanicsPlugin;
@@ -21,13 +21,11 @@ fn main() {
     let mut app = App::new();
 
     let default_plugins = DefaultPlugins.set(WindowPlugin {
-        window: WindowDescriptor {
+        primary_window: Some(Window {
             mode: WindowMode::Windowed,
             title: "RGB".to_owned(),
-            // mode: WindowMode::BorderlessFullscreen,
-            scale_factor_override: Some(1.0),
             ..default()
-        },
+        }),
         ..default()
     });
 
