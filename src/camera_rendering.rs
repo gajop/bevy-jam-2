@@ -1,7 +1,7 @@
 use bevy::{
     core_pipeline::clear_color::ClearColorConfig,
     prelude::*,
-    reflect::TypeUuid,
+    reflect::{TypeUuid, TypePath},
     render::{
         camera::{RenderTarget, Viewport},
         render_resource::{
@@ -24,16 +24,16 @@ struct CameraStuff;
 
 impl Plugin for CameraRendering {
     fn build(&self, app: &mut App) {
-        app.add_plugin(Material2dPlugin::<PostProcessingMaterialRed>::default())
-            .add_plugin(Material2dPlugin::<PostProcessingMaterialGreen>::default())
-            .add_plugin(Material2dPlugin::<PostProcessingMaterialBlue>::default())
-            .add_startup_system(setup_main_camera)
-            .add_startup_system(setup)
-            .add_startup_system(setup_cameras)
-            .add_startup_system(spawn_first_level)
-            // .add_system(set_camera_viewports)
-            .add_system(recreate_on_resize);
-        // .add_system(resize_camera_sprites);
+        app.add_plugins(Material2dPlugin::<PostProcessingMaterialRed>::default())
+            .add_plugins(Material2dPlugin::<PostProcessingMaterialGreen>::default())
+            .add_plugins(Material2dPlugin::<PostProcessingMaterialBlue>::default())
+            .add_systems(Startup, setup_main_camera)
+            .add_systems(Startup, setup)
+            .add_systems(Startup, setup_cameras)
+            .add_systems(Startup, spawn_first_level)
+            // .add_systems(Update, set_camera_viewports)
+            .add_systems(Update, recreate_on_resize);
+        // .add_systems(Update, resize_camera_sprites);
     }
 }
 
@@ -249,7 +249,7 @@ fn spawn_first_level(
     }
 }
 
-#[derive(AsBindGroup, TypeUuid, Clone)]
+#[derive(AsBindGroup, TypeUuid, Clone, TypePath)]
 #[uuid = "bc1812d4-ba8e-4cc8-87c1-84ef07a7cb7b"]
 struct PostProcessingMaterialRed {
     #[texture(0)]
@@ -263,7 +263,7 @@ impl Material2d for PostProcessingMaterialRed {
     }
 }
 
-#[derive(AsBindGroup, TypeUuid, Clone)]
+#[derive(AsBindGroup, TypeUuid, Clone, TypePath)]
 #[uuid = "c806abff-a13f-4173-be15-9810b7626888"]
 struct PostProcessingMaterialGreen {
     #[texture(0)]
@@ -277,7 +277,7 @@ impl Material2d for PostProcessingMaterialGreen {
     }
 }
 
-#[derive(AsBindGroup, TypeUuid, Clone)]
+#[derive(AsBindGroup, TypeUuid, Clone, TypePath)]
 #[uuid = "acd3ba48-bbe7-45e6-a5c8-aec911b6dad6"]
 struct PostProcessingMaterialBlue {
     #[texture(0)]

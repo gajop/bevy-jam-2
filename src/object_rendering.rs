@@ -6,12 +6,12 @@ pub struct ObjectRenderingPlugin;
 
 impl Plugin for ObjectRenderingPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(spawn_player_object)
-            .add_system(spawn_trap_object)
-            .add_system(spawn_goal_object)
-            .add_system(update_material_color)
-            .add_system(update_visibility)
-            .add_system(update_transform_from_grid);
+        app.add_systems(Update, spawn_player_object)
+            .add_systems(Update, spawn_trap_object)
+            .add_systems(Update, spawn_goal_object)
+            .add_systems(Update, update_material_color)
+            .add_systems(Update, update_visibility)
+            .add_systems(Update, update_transform_from_grid);
     }
 }
 

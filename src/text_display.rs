@@ -6,9 +6,9 @@ pub struct TextDisplayPlugin;
 
 impl Plugin for TextDisplayPlugin {
     fn build(&self, app: &mut App) {
-        app.add_startup_system(setup_text)
-            .add_system(win_text)
-            .add_system(text_update_system);
+        app.add_systems(Startup, setup_text)
+            .add_systems(Update, win_text)
+            .add_systems(Update, text_update_system);
     }
 }
 
@@ -31,11 +31,8 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
                 align_self: AlignSelf::FlexEnd,
                 position_type: PositionType::Absolute,
 
-                position: UiRect {
-                    left: Val::Percent(45.0),
-                    bottom: Val::Percent(0.0),
-                    ..default()
-                },
+                left: Val::Percent(45.0),
+                bottom: Val::Percent(0.0),
                 ..default()
             }),
         )
@@ -56,11 +53,8 @@ fn setup_text(mut commands: Commands, asset_server: Res<AssetServer>) {
             align_self: AlignSelf::FlexEnd,
             position_type: PositionType::Absolute,
 
-            position: UiRect {
-                top: Val::Percent(0.0),
-                right: Val::Percent(0.0),
-                ..default()
-            },
+            top: Val::Percent(0.0),
+            right: Val::Percent(0.0),
             ..default()
         }),
     );
@@ -90,11 +84,8 @@ fn win_text(mut commands: Commands, asset_server: Res<AssetServer>, level_info: 
             align_self: AlignSelf::FlexEnd,
             position_type: PositionType::Absolute,
 
-            position: UiRect {
-                top: Val::Percent(40.0),
-                left: Val::Percent(40.0),
-                ..default()
-            },
+            top: Val::Percent(40.0),
+            left: Val::Percent(40.0),
             ..default()
         }),
     );

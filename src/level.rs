@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, reflect::TypePath};
 use bevy_common_assets::json::JsonAssetPlugin;
 use ctrl_macros::some_or_return;
 use serde::Deserialize;
@@ -39,7 +39,7 @@ struct Level {
 #[derive(Resource)]
 struct LevelsHandle(Handle<Levels>);
 
-#[derive(Deserialize, bevy::reflect::TypeUuid, Resource)]
+#[derive(Deserialize, bevy::reflect::TypeUuid, Resource, TypePath)]
 #[uuid = "413be529-bfeb-41b3-9db0-4b8b380a2c46"] // <-- keep me unique
 struct Levels {
     levels: Vec<Level>,
@@ -56,13 +56,13 @@ pub struct LevelPlugin;
 
 impl Plugin for LevelPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_plugin(JsonAssetPlugin::<Levels>::new(&["level.json"]))
-            .add_startup_system(load_first_level)
-            .add_startup_system(setup)
-            .add_system(reload_level_on_death)
-            .add_system(reload_level_on_timer_expired)
-            .add_system(load_level_on_level_change)
-            .add_system(go_to_next_level_on_goal)
+        app.add_plugins(JsonAssetPlugin::<Levels>::new(&["level.json"]))
+            .add_systems(Startup, load_first_level)
+            .add_systems(Startup, setup)
+            .add_systems(Update, reload_level_on_death)
+            .add_systems(Update, reload_level_on_timer_expired)
+            .add_systems(Update, load_level_on_level_change)
+            .add_systems(Update, go_to_next_level_on_goal)
             .insert_resource(LevelInfo {
                 index: None,
                 desired_index: None,

@@ -1,8 +1,10 @@
-use audio::AudioPlugin;
-use bevy::{prelude::*, window::WindowMode};
+use std::time::Duration;
 
-#[cfg(debug_assertions)]
-use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use audio::AudioPlugin;
+use bevy::{prelude::*, window::WindowMode, asset::ChangeWatcher};
+
+// #[cfg(debug_assertions)]
+// use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
 use camera_rendering::CameraRendering;
 use game_mechanics::GameMechanicsPlugin;
@@ -31,20 +33,21 @@ fn main() {
 
     #[cfg(debug_assertions)]
     let default_plugins = default_plugins.set(AssetPlugin {
-        watch_for_changes: true,
+        watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
         ..default()
     });
 
     app.add_plugins(default_plugins);
 
-    #[cfg(debug_assertions)]
-    app.add_plugin(WorldInspectorPlugin::new());
+    // TODO: Add after bevy-inspector-egui is ported to bevy 0.11
+    // #[cfg(debug_assertions)]
+    // app.add_plugins(WorldInspectorPlugin::new());
 
-    app.add_plugin(AudioPlugin)
-        .add_plugin(CameraRendering)
-        .add_plugin(GameMechanicsPlugin)
-        .add_plugin(LevelPlugin)
-        .add_plugin(ObjectRenderingPlugin)
-        .add_plugin(TextDisplayPlugin)
+    app.add_plugins(AudioPlugin)
+        .add_plugins(CameraRendering)
+        .add_plugins(GameMechanicsPlugin)
+        .add_plugins(LevelPlugin)
+        .add_plugins(ObjectRenderingPlugin)
+        .add_plugins(TextDisplayPlugin)
         .run();
 }

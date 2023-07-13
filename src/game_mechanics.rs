@@ -35,12 +35,16 @@ pub enum GameColor {
 
 // Events
 
+#[derive(Event)]
 pub struct ReachedGoalEvent;
 
+#[derive(Event)]
 pub struct HitTrapEvent;
 
+#[derive(Event)]
 pub struct PlayerMovedEvent;
 
+#[derive(Event)]
 pub struct TimerExpiredEvent;
 
 #[derive(Resource)]
@@ -48,11 +52,11 @@ pub struct GameTimer(pub Option<Timer>);
 
 impl Plugin for GameMechanicsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(movement_system)
+        app.add_systems(Update, movement_system)
             .insert_resource(GameTimer(None))
-            .add_system(reach_goal)
-            .add_system(hit_trap)
-            .add_system(timer_expired)
+            .add_systems(Update, reach_goal)
+            .add_systems(Update, hit_trap)
+            .add_systems(Update, timer_expired)
             .add_event::<HitTrapEvent>()
             .add_event::<ReachedGoalEvent>()
             .add_event::<PlayerMovedEvent>()
